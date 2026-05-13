@@ -1,0 +1,25 @@
+{
+  "name": "retro-calculator-api",
+  "version": "2.0.0",
+  "description": "Calculatrice Retro avec Frontend interactif + API REST + Tests Jest",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node src/app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": ["calculator", "retro", "api", "rest", "jest", "docker", "pixel-art"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RETRO CALC 9000</title>
+
+  <!-- Press Start 2P — pixel font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Scanlines overlay ───────────────────────────────────────── -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ── Main wrapper ───────────────────────────────────────────── -->
+  <main class="calculator-wrapper">
+
+    <!-- ── CRT bezel ────────────────────────────────────────────── -->
+    <div class="calculator" role="application" aria-label="Calculatrice Retro">
+
+      <!-- ── Brand header ───────────────────────────────────────── -->
+      <header class="brand-bar">
+        <span class="brand-logo">◀ RETRO</span>
+        <span class="brand-model">CALC-9000</span>
+        <span class="brand-led" aria-label="Power LED"></span>
+      </header>
+
+      <!-- ── Display ──────────────────────────────────────────────── -->
+      <section class="display-section" aria-live="polite">
+        <div class="display-bezel">
+          <!-- Expression history (top small line) -->
+          <div id="expression-display" class="expression-display" aria-label="Expression"></div>
+          <!-- Main result / current input -->
+          <div id="main-display"    class="main-display"    aria-label="Résultat">0</div>
+          <!-- Cursor blink -->
+          <span class="cursor" aria-hidden="true">█</span>
+        </div>
+        <!-- Mode indicators -->
+        <div class="display-indicators">
+          <span id="ind-err"  class="indicator">ERR</span>
+          <span id="ind-neg"  class="indicator">NEG</span>
+          <span id="ind-mem"  class="indicator">MEM</span>
+        </div>
+      </section>
+
+      <!-- ── Keypad ────────────────────────────────────────────────── -->
+      <section class="keypad" role="group" aria-label="Touches">
+
+        <!-- Row 0 — utilities -->
+        <div class="key-row">
+          <button class="key key-util" data-action="clear-all"  aria-label="Effacer tout">AC</button>
+          <button class="key key-util" data-action="clear"      aria-label="Effacer">CE</button>
+          <button class="key key-util" data-action="backspace"  aria-label="Supprimer">⌫</button>
+          <button class="key key-op"   data-action="percent"    aria-label="Pourcentage">%</button>
+        </div>
+
+        <!-- Row 1 — special / parens -->
+        <div class="key-row">
+          <button class="key key-spec" data-action="paren-open"   aria-label="Parenthèse ouvrante">(</button>
+          <button class="key key-spec" data-action="paren-close"  aria-label="Parenthèse fermante">)</button>
+          <button class="key key-spec" data-action="sqrt"         aria-label="Racine carrée">√</button>
+          <button class="key key-op"   data-action="divide"       aria-label="Diviser">÷</button>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="key-row">
+          <button class="key key-num" data-action="digit" data-value="7">7</button>
+          <button class="key key-num" data-action="digit" data-value="8">8</button>
+          <button class="key key-num" data-action="digit" data-value="9">9</button>
+          <button class="key key-op"  data-action="multiply" aria-label="Multiplier">×</button>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="key-row">
+          <button class="key key-num" data-action="digit" data-value="4">4</button>
+          <button class="key key-num" data-action="digit" data-value="5">5</button>
+          <button class="key key-num" data-action="digit" data-value="6">6</button>
+          <button class="key key-op"  data-action="subtract" aria-label="Soustraire">−</button>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="key-row">
+          <button class="key key-num" data-action="digit" data-value="1">1</button>
+          <button class="key key-num" data-action="digit" data-value="2">2</button>
+          <button class="key key-num" data-action="digit" data-value="3">3</button>
+          <button class="key key-op"  data-action="add" aria-label="Additionner">+</button>
+        </div>
+
+        <!-- Row 5 — zero / decimal / equals -->
+        <div class="key-row">
+          <button class="key key-num key-double" data-action="digit" data-value="0">0</button>
+          <button class="key key-num" data-action="decimal" aria-label="Virgule">,</button>
+          <button class="key key-eq"  data-action="equals"  aria-label="Égal">=</button>
+        </div>
+
+      </section>
+
+      <!-- ── Sound toggle ─────────────────────────────────────────── -->
+      <footer class="calc-footer">
+        <button id="sound-toggle" class="sound-btn" aria-label="Activer/désactiver les sons" aria-pressed="false">
+          <span class="sound-icon">🔇</span>
+          <span class="sound-label">SOUND</span>
+        </button>
+        <span class="footer-credit">© 1984 RETROCORP</span>
+      </footer>
+
+    </div><!-- /.calculator -->
+  </main>
+
+  <script src="js/calculator.js"></script>
+</body>
+</html>
