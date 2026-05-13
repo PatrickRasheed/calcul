@@ -10,11 +10,20 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "keywords": ["calculator", "retro", "api", "rest", "jest", "docker", "pixel-art"],
+  "keywords": [
+    "calculator",
+    "retro",
+    "api",
+    "rest",
+    "jest",
+    "docker",
+    "pixel-art"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "prom-client": "^15.1.3"
   },
   "devDependencies": {
     "jest": "^29.7.0"

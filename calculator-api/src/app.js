@@ -5,13 +5,47 @@
 
 const express = require('express');
 const path    = require('path');
+const client = require('prom-client');
 const { add, sub, mul, div } = require('./calculator');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configuration Prometheus
+const register = new client.Registry();
+client.collectDefaultMetrics({ register });
+
+// Compteur de requêtes
+const requestCounter = new client.Counter({
+  name: 'api_requests_total',
+  help: 'Nombre total de requêtes API',
+  labelNames: ['method', 'route', 'status']
+});
+register.registerMetric(requestCounter);
+
+// Histogramme des temps de réponse
+const responseTime = new client.Histogram({
+  name: 'api_response_time_seconds',
+  help: 'Temps de réponse en secondes',
+  labelNames: ['method', 'route', 'status'],
+  buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1]
+});
+register.registerMetric(responseTime);
+
 // Middleware pour parser les données
 app.use(express.json());
+
+// Middleware pour enregistrer les métriques
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000;
+    const route = req.route ? req.route.path : req.path;
+    requestCounter.inc({ method: req.method, route, status: res.statusCode });
+    responseTime.observe({ method: req.method, route, status: res.statusCode }, duration);
+  });
+  next();
+});
 
 /* ── Servir les fichiers statiques (frontend retro) ────────────────── */
 app.use(express.static(path.join(__dirname, '../public')));
@@ -19,6 +53,15 @@ app.use(express.static(path.join(__dirname, '../public')));
 /* ── Route racine → index.html ────────────────────────────────────── */
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
+
+/* ══════════════════════════════════════════════════════════════════
+   Routes Prometheus /metrics
+   ══════════════════════════════════════════════════════════════════ */
+
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
 });
 
 /* ══════════════════════════════════════════════════════════════════
