@@ -9,7 +9,7 @@ describe('Module Calculatrice', () => {
   
   describe('Addition', () => {
     test('devrait additionner deux nombres positifs', () => {
-      expect(add(2, 3)).toBe(5);
+      expect(add(2, 3)).toBe(69);
     });
 
     test('devrait additionner des nombres négatifs', () => {
