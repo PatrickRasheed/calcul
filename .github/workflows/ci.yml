@@ -2,6 +2,8 @@ name: Node.js CI
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -18,9 +20,11 @@ jobs:
           node-version: 20
 
       - name: Installation des dépendances
+        working-directory: calculator-api
         run: |
           npm install
 
       - name: Exécution des tests Jest
+        working-directory: calculator-api
         run: |
           npm test
