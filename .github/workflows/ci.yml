@@ -27,4 +27,4 @@ jobs:
       - name: Exécution des tests Jest
         working-directory: calculator-api
         run: |
-          npx jest
+          npm exec jest
